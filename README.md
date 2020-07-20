@@ -1,7 +1,25 @@
 # serverless-plugin-typescript
-[![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com) [![npm version](https://badge.fury.io/js/serverless-plugin-typescript.svg)](https://badge.fury.io/js/serverless-plugin-typescript) [![Build Status](https://travis-ci.org/prisma/serverless-plugin-typescript.svg?branch=master)](https://travis-ci.org/prisma/serverless-plugin-typescript)
 
 Serverless plugin for zero-config Typescript support
+
+[![sls][sls-image]][sls-url]
+[![npm][npm-image]][npm-url]
+[![build][build-image]][build-url]
+
+[sls-image]: http://public.serverless.com/badges/v3.svg
+[sls-url]: http://www.serverless.com
+[npm-image]: https://badge.fury.io/js/%40kingdarboja%2Fserverless-plugin-typescript.svg
+[npm-url]: https://www.npmjs.com/package/@kingdarboja/serverless-plugin-typescript
+[build-image]: https://img.shields.io/github/workflow/status/KingDarBoja/serverless-plugin-typescript/CI
+[build-url]: https://github.com/KingDarBoja/serverless-plugin-typescript/actions?query=workflow%3ACI
+
+## **Important**
+
+### *This is a fork from official [serverless-plugin-typescript]*
+
+All credit goes to Prisma Labs Team for development of this awesome plugin.
+
+[serverless-plugin-typescript]: https://github.com/prisma-labs/serverless-plugin-typescript
 
 ## Features
 
@@ -14,16 +32,16 @@ Serverless plugin for zero-config Typescript support
 ## Install
 
 ```sh
-yarn add --dev serverless-plugin-typescript typescript
+yarn add --dev @kingdarboja/serverless-plugin-typescript typescript
 # or
-npm install -D serverless-plugin-typescript typescript
+npm install -D @kingdarboja/serverless-plugin-typescript typescript
 ```
 
 Add the following plugin to your `serverless.yml`:
 
 ```yaml
 plugins:
-  - serverless-plugin-typescript
+  - '@kingdarboja/serverless-plugin-typescript'
 ```
 
 ## Configure
@@ -53,6 +71,19 @@ The default `tsconfig.json` file used by the plugin looks like this:
 > Note 1: The `outDir` and `rootDir` options cannot be overwritten.
 
 > Note 2: Don't confuse the [`tsconfig.json`](tsconfig.json) in this repository with the one mentioned above.
+
+### Custom Typescript Configuration
+
+This plugin will use your local `tsconfig.json` if it exists. You can configure a path to a custom Typescript configuration inside your `serverless.yml` using:
+
+    ...
+    plugins:
+      - serverless-plugin-typescript
+    custom:
+      typeScript:
+        tsconfigFilePath: ./tsconfig.build.json
+    ...    
+
 
 ### Including extra files
 
@@ -95,12 +126,12 @@ The normal Serverless deploy procedure will automatically compile with Typescrip
 The plugin integrates very well with [serverless-offline](https://github.com/dherault/serverless-offline) to
 simulate AWS Lambda and AWS API Gateway locally.
 
-Add the plugins to your `serverless.yml` file and make sure that `serverless-plugin-typescript`
+Add the plugins to your `serverless.yml` file and make sure that `'@kingdarboja/serverless-plugin-typescript'`
 precedes `serverless-offline` as the order is important:
 ```yaml
   plugins:
     ...
-    - serverless-plugin-typescript
+    - '@kingdarboja/serverless-plugin-typescript'
     ...
     - serverless-offline
     ...
@@ -116,7 +147,7 @@ Configure your service the same as mentioned above, but additionally add the `se
 plugin as follows:
 ```yaml
   plugins:
-    - serverless-plugin-typescript
+    - '@kingdarboja/serverless-plugin-typescript'
     - serverless-dynamodb-local
     - serverless-offline
 ```
@@ -165,10 +196,3 @@ module.exports = {
 
 }
 ```
-
-## Help & Community
-
-Join our [Spectrum community](http://spectrum.chat/prisma) if you run into issues or have questions. We love talking to you!
-
-<p align="center"><a href="https://oss.prisma.io"><img src="https://imgur.com/IMU2ERq.png" alt="Prisma" height="170px"></a></p>
-

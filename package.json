@@ -1,24 +1,40 @@
 {
-  "name": "serverless-plugin-typescript",
-  "version": "0.0.0-semantic-release",
+  "name": "@kingdarboja/serverless-plugin-typescript",
+  "version": "1.4.0",
+  "author": {
+    "name": "Prisma Labs",
+    "url": "https://www.prisma.io/"
+  },
+  "maintainers": [
+    {
+      "name": "KingDarBoja",
+      "url": "https://github.com/KingDarBoja/"
+    }
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
-  "main": "dist/src/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "dist",
-    "package.json",
-    "README.md"
+    "dist/**/*"
   ],
   "scripts": {
-    "prepublish": "npm run build",
-    "precommit": "npm run test",
-    "build": "rimraf dist && tsc",
     "pretest": "npm run lint",
+    "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "build:check": "tsc",
+    "format": "prettier --loglevel error --write \"{src,tests}/**/*.ts\"",
     "test": "jest",
-    "lint": "tslint -c tslint.json 'src/**/*.ts'"
+    "lint": "eslint --ext ts .",
+    "prepublishOnly": "npm run format && npm run lint && npm test",
+    "preversion": "npm run format && npm run lint && npm test",
+    "version": " git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/prisma/serverless-plugin-typescript.git"
+    "url": "git+https://github.com/KingDarBoja/serverless-plugin-typescript.git"
   },
   "keywords": [
     "serverless",
@@ -26,33 +42,31 @@
     "typescript",
     "aws lambda"
   ],
+  "engines": {
+    "node": ">=10.0.0"
+  },
   "devDependencies": {
-    "@types/fs-extra": "5.0.5",
-    "@types/jest": "24.0.12",
-    "@types/lodash": "4.14.123",
-    "@types/node": "12.6.2",
-    "jest": "24.5.0",
-    "mock-fs": "4.9.0",
-    "rimraf": "2.6.3",
-    "ts-jest": "24.0.2",
-    "tslint": "5.14.0",
-    "typescript": "^3.4.1"
+    "@types/fs-extra": "9.0.1",
+    "@types/jest": "26.0.5",
+    "@types/lodash": "4.14.157",
+    "@types/node": "14.0.23",
+    "@typescript-eslint/eslint-plugin": "^3.6.1",
+    "@typescript-eslint/parser": "^3.6.1",
+    "eslint": "^7.5.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsdoc": "^30.0.0",
+    "eslint-plugin-prefer-arrow": "^1.2.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "jest": "26.1.0",
+    "mock-fs": "4.12.0",
+    "prettier": "^2.0.5",
+    "ts-jest": "26.1.3",
+    "typescript": "^3.9.7"
   },
   "dependencies": {
-    "fs-extra": "^7.0.1",
-    "globby": "^9.2.0",
-    "lodash": "^4.17.11"
-  },
-  "peerDependencies": {
-    "typescript": ">=2.2.2"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.ts$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ]
+    "fs-extra": "^9.0.1",
+    "globby": "^11.0.1",
+    "lodash": "^4.17.19"
   }
 }

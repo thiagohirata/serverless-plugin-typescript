@@ -1,0 +1,25 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  testing:
+    name: Test Matrix
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: [10, 12]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install NodeJS ${{ matrix.node }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node }}
+    - name: Install Dependencies
+      run: npm install
+    - name: Run Test Suite
+      run: npm run test
+    - name: Compile TypeScript + Check Errors
+      uses: icrawl/action-tsc@v1
+
